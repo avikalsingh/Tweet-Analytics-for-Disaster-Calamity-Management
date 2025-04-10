@@ -12,18 +12,21 @@ def tweet_object(skip_check=False):
 
 
 def fetch_tweets(keyword, mode, number, near=None, exclude=None, filters=None, to=None, language='en', since=None, until=None):
+    from streamlit import error as st_error  # Optional if you want to display a nicer error
 
     scraper = tweet_object()
+    tweet_dict = {"tweets": [], "meta": {}}  # default structure to avoid downstream crashes
 
     try:
-        tweet_dict = scraper.get_tweets(keyword, mode=mode, number=number,
-                                        near=near, exclude=exclude, filters=filters,
-                                        to=to, language=language, since=since, until=until,
-                                        # instance="http://localhost:8080"
-                                        )
+        tweet_dict = scraper.get_tweets(
+            keyword, mode=mode, number=number,
+            near=near, exclude=exclude, filters=filters,
+            to=to, language=language, since=since, until=until
+        )
     except Exception as e:
-        st.write("Retry request")
-        print(e)
+        st.write("❗ Something went wrong while fetching tweets.")
+        st_error(f"Error: {str(e)}")  # shows a collapsible error box
+        print(f"[ERROR] fetch_tweets(): {e}")
 
     return tweet_dict
 
