@@ -1,6 +1,5 @@
 streamlit==1.29.0
 tensorflow==2.16.2
-keras==2.13.1
 nltk==3.8.1
 ntscraper
 spacy==3.7.2
