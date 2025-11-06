@@ -5,7 +5,7 @@ import spacy
 @st.cache_resource
 def tweet_object(skip_check=False):
     
-    scraper = ntscraper.Nitter(skip_instance_check=skip_check)
+    scraper = ntscraper.Nitter(skip_instance_check=True, log_level=0)
 
     return scraper
 
@@ -38,7 +38,7 @@ def get_location(tweet_text):
 
     gpe_entities = [ent.text for ent in doc.ents if ent.label_ == "GPE"]
 
-    if gpe_entities or gpe_entities != []:
+    if gpe_entities:
         return ", ".join(gpe_entities)
     else:
         return "No location found"

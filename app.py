@@ -40,7 +40,7 @@ def main_page(input_dict):
                             on_tweets.append([tweet, classif, loc_info])
                         else:
                             annotated_text((classif["status"], str(classif["conf"]), "#BF565A"))
-                            on_tweets.append([tweet, classif, loc_info])
+                            off_tweets.append([tweet, classif, loc_info])
 
                         annotated_text((loc_info, "", "#50C878"))
 
