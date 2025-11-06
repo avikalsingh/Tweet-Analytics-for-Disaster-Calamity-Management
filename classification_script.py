@@ -13,33 +13,42 @@ import pandas as pd
 
 @st.cache_resource
 def load_tokenizer():
-
-    with open("models/lstm_token.pkl", "rb") as f:
-        lstm_tokenizer = pickle.load(f)    
-
-    return lstm_tokenizer
+    try:
+        with open("models/lstm_token.pkl", "rb") as f:
+            lstm_tokenizer = pickle.load(f)
+        return lstm_tokenizer
+    except FileNotFoundError:
+        st.warning("⚠️ Tokenizer file not found. Running in demo mode.")
+        return None
 
 @st.cache_resource
 def load_classifier():
-
-    loaded_model = load_model("models/trained_lstm_model.h5", compile=False)
-
-    return loaded_model 
+    try:
+        loaded_model = load_model("models/trained_lstm_model.h5", compile=False)
+        return loaded_model
+    except (FileNotFoundError, OSError):
+        st.warning("⚠️ Model file not found. Running in demo mode.")
+        return None
 
 def classify_tweets(tweet_text):
-
     model = load_classifier()
     tokenizer = load_tokenizer()
-
-
-    encoded = pad_sequences(tokenizer.texts_to_sequences([tweet_text]), maxlen=100)
-
-    result = model.predict(encoded)
-
-    if result[0][0] >= 0.95:
-        return {"status": "On-topic", "conf": result[0][0]}
-    else:
-        return {"status": "Off-topic", "conf": result[0][0]}
+    
+    # Check if model and tokenizer are loaded
+    if model is None or tokenizer is None:
+        return {"status": "Demo Mode", "conf": 0.0}
+    
+    try:
+        encoded = pad_sequences(tokenizer.texts_to_sequences([tweet_text]), maxlen=100)
+        result = model.predict(encoded)
+        
+        if result[0][0] >= 0.95:
+            return {"status": "On-topic", "conf": result[0][0]}
+        else:
+            return {"status": "Off-topic", "conf": result[0][0]}
+    except Exception as e:
+        st.error(f"Classification error: {e}")
+        return {"status": "Error", "conf": 0.0}
 
 if __name__ == "__main__":
 
