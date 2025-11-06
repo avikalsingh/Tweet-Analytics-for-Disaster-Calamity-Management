@@ -1,13 +1,15 @@
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"  # Force Keras 2
+
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow import keras
-
 import streamlit as st
-
 import pickle
 import pandas as pd
+
 
 @st.cache_resource
 def load_tokenizer():
