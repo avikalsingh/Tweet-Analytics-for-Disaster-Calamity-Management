@@ -34,13 +34,13 @@ def main_page(input_dict):
                     with col1:
                         st.subheader("User")
                         st.write(tweet["user"]["name"])
-                        classif = classify_tweets(tweet["text"])
-                        if classif["status"] == "On-topic":
-                            annotated_text((classif["status"], str(classif["conf"]), "#4DD0E1"))
-                            on_tweets.append([tweet, classif, loc_info])
-                        else:
-                            annotated_text((classif["status"], str(classif["conf"]), "#BF565A"))
-                            off_tweets.append([tweet, classif, loc_info])
+                        # classif = classify_tweets(tweet["text"])
+                        # if classif["status"] == "On-topic":
+                        #     annotated_text((classif["status"], str(classif["conf"]), "#4DD0E1"))
+                        #     on_tweets.append([tweet, classif, loc_info])
+                        # else:
+                        #     annotated_text((classif["status"], str(classif["conf"]), "#BF565A"))
+                        #     off_tweets.append([tweet, classif, loc_info])
 
                         annotated_text((loc_info, "", "#50C878"))
 
