@@ -59,36 +59,38 @@ def main_page(input_dict):
 
 
 def sidebar_page():
-
     with st.sidebar:
-
         st.title("Fetch Tweets")
-
-        keyword = st.text_input("Tweets from User, Hashtag, Term")
-        mode = st.selectbox("Select the type of keyword", options=["keyword", "hashtag", "user"], index=1,
-                            format_func = lambda x: "term" if x == "keyword" else x)
-        number = st.number_input("Number of tweets to fetch", min_value=10, max_value=100)
-        location = st.text_input("Location of the tweet")
-
-        # include_date = st.checkbox("Include date range",)
-        # if include_date:
-        #     since = st.date_input("Tweet since:", value="today")
-        #     until = st.date_input("Tweet until:", value="today")
-        # else:
-        #     since = None
-        #     until = None
-
-        user_mention = st.text_input("User Mentions (if any)")
+        
+        # Add CSV demo mode option
+        use_csv = st.checkbox("📁 Use saved tweets (Demo Mode)", value=True)
+        
+        if use_csv:
+            st.info("Using pre-loaded forest fire tweets from CSV")
+            keyword = st.selectbox("Select topic", ["forestfire", "earthquake", "floods", "hurricane"])
+            mode = "hashtag"
+            number = st.slider("Number of tweets", 10, 200, 50)
+            location = None
+            user_mention = None
+        else:
+            # Your existing code for live fetching
+            keyword = st.text_input("Tweets from User, Hashtag, Term")
+            mode = st.selectbox("Select the type of keyword", options=["keyword", "hashtag", "user"], index=1,
+                                format_func = lambda x: "term" if x == "keyword" else x)
+            number = st.number_input("Number of tweets to fetch", min_value=10, max_value=100)
+            location = st.text_input("Location of the tweet")
+            user_mention = st.text_input("User Mentions (if any)")
+        
         btn = st.button("Search")
-
+        
         if btn and keyword != "" and number != None:
             if location == "": location = None
             if user_mention == "": user_mention = None
             if mode == "keyword": mode = "term"
-
-
+            
             return {"keyword": keyword, "number": number, "mode": mode, "near": location,
                     "since": None, "until": None, "to": user_mention}
+
         
 
 
