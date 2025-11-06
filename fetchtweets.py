@@ -5,8 +5,31 @@ import spacy
 @st.cache_resource
 def tweet_object(skip_check=False):
     
-    scraper = ntscraper.Nitter(skip_instance_check=True, log_level=0)
-
+    # List of known working instances (as of late 2024)
+    instances = [
+        "https://nitter.poast.org",
+        "https://nitter.privacydev.net",
+        "https://nitter.net",
+        "https://nitter.it"
+    ]
+    
+    # Try each instance until one works
+    for instance in instances:
+        try:
+            scraper = ntscraper.Nitter(
+                instance=instance,
+                skip_instance_check=True,
+                log_level=0
+            )
+            st.success(f"✅ Connected to: {instance}")
+            return scraper
+        except Exception as e:
+            st.warning(f"⚠️ Failed to connect to {instance}")
+            continue
+    
+    # If all fail, try without specifying instance
+    st.warning("All instances failed. Trying default configuration...")
+    scraper = ntscraper.Nitter(skip_instance_check=False, log_level=1)
     return scraper
 
 
