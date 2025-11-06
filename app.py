@@ -15,6 +15,14 @@ def main_page(input_dict):
     st.markdown("<center><h1>🕊️ Tweet Analytics for Disaster & Calamity Management</h1></center>", unsafe_allow_html=True)
 
     # alltabs, off_tab, on_tab = st.tabs(["All tweets", "On-topic", "Off-topic"])
+    # ADD THIS INFO BANNER:
+    st.info("""
+    ℹ️ **Demo Mode**: This app currently uses pre-loaded tweet data due to Twitter/X discontinuing public access to Nitter instances.
+    
+    Available data: **200 #forestfire tweets** from December 2023.
+    
+    Live tweet fetching is temporarily unavailable.
+    """)
 
     off_tweets = []
     on_tweets = []
@@ -59,37 +67,70 @@ def main_page(input_dict):
 
 
 def sidebar_page():
-    with st.sidebar:
-        st.title("Fetch Tweets")
+    # with st.sidebar:
+    #     st.title("Fetch Tweets")
         
-        # Add CSV demo mode option
-        use_csv = st.checkbox("📁 Use saved tweets (Demo Mode)", value=True)
+    #     # Add CSV demo mode option
+    #     use_csv = st.checkbox("📁 Use saved tweets (Demo Mode)", value=True)
         
-        if use_csv:
-            st.info("Using pre-loaded forest fire tweets from CSV")
-            keyword = st.selectbox("Select topic", ["forestfire", "earthquake", "floods", "hurricane"])
-            mode = "hashtag"
-            number = st.slider("Number of tweets", 10, 200, 50)
-            location = None
-            user_mention = None
-        else:
-            # Your existing code for live fetching
-            keyword = st.text_input("Tweets from User, Hashtag, Term")
-            mode = st.selectbox("Select the type of keyword", options=["keyword", "hashtag", "user"], index=1,
-                                format_func = lambda x: "term" if x == "keyword" else x)
-            number = st.number_input("Number of tweets to fetch", min_value=10, max_value=100)
-            location = st.text_input("Location of the tweet")
-            user_mention = st.text_input("User Mentions (if any)")
+    #     if use_csv:
+    #         st.info("Using pre-loaded forest fire tweets from CSV")
+    #         keyword = st.selectbox("Select topic", ["forestfire", "earthquake", "floods", "hurricane"])
+    #         mode = "hashtag"
+    #         number = st.slider("Number of tweets", 10, 200, 50)
+    #         location = None
+    #         user_mention = None
+    #     else:
+    #         # Your existing code for live fetching
+    #         keyword = st.text_input("Tweets from User, Hashtag, Term")
+    #         mode = st.selectbox("Select the type of keyword", options=["keyword", "hashtag", "user"], index=1,
+    #                             format_func = lambda x: "term" if x == "keyword" else x)
+    #         number = st.number_input("Number of tweets to fetch", min_value=10, max_value=100)
+    #         location = st.text_input("Location of the tweet")
+    #         user_mention = st.text_input("User Mentions (if any)")
         
-        btn = st.button("Search")
+    #     btn = st.button("Search")
         
-        if btn and keyword != "" and number != None:
-            if location == "": location = None
-            if user_mention == "": user_mention = None
-            if mode == "keyword": mode = "term"
+    #     if btn and keyword != "" and number != None:
+    #         if location == "": location = None
+    #         if user_mention == "": user_mention = None
+    #         if mode == "keyword": mode = "term"
             
-            return {"keyword": keyword, "number": number, "mode": mode, "near": location,
-                    "since": None, "until": None, "to": user_mention}
+    #         return {"keyword": keyword, "number": number, "mode": mode, "near": location,
+    #                 "since": None, "until": None, "to": user_mention}
+    with st.sidebar:
+        st.title("📁 Saved Tweet Dataset")
+        
+        st.caption("Due to Twitter/X restrictions, live fetching is unavailable. Using saved dataset.")
+        
+        keyword = st.selectbox(
+            "Select disaster type:",
+            ["forestfire"],
+            help="Only forest fire tweets available in demo"
+        )
+        
+        mode = "hashtag"
+        
+        number = st.slider(
+            "Number of tweets to display:", 
+            min_value=10, 
+            max_value=200, 
+            value=50,
+            step=10
+        )
+        
+        btn = st.button("Load Tweets", type="primary")
+        
+        if btn:
+            return {
+                "keyword": keyword, 
+                "number": number, 
+                "mode": mode, 
+                "near": None,
+                "since": None, 
+                "until": None, 
+                "to": None
+            }
 
         
 
