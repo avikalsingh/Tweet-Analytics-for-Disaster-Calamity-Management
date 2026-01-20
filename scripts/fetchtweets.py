@@ -44,7 +44,7 @@ def fetch_tweets(keyword, mode, number, near=None, exclude=None, filters=None, t
     #     else:
     #         st.error("❌ Both live fetching and CSV loading failed")
     #         return {"tweets": [], "meta": {}, "error": True}
-    from load_csv_tweets import load_saved_tweets, csv_to_tweet_dict
+    from scripts.load_csv_tweets import load_saved_tweets, csv_to_tweet_dict
     
     # Don't even try live scraping - go straight to CSV
     # (Nitter instances are down due to Twitter/X blocking them)
