@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import datetime
-from classification_script import classify_tweets
-from fetchtweets import fetch_tweets, get_location
+from scripts.classification_script import classify_tweets
+from scripts.fetchtweets import fetch_tweets, get_location
 from annotated_text import annotated_text
 
 from embedtweet import Tweet
