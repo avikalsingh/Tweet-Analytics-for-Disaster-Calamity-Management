@@ -4,7 +4,7 @@ from scripts.classification_script import classify_tweets
 from scripts.fetchtweets import fetch_tweets, get_location
 from annotated_text import annotated_text
 
-from embedtweet import Tweet
+from scripts.embedtweet import Tweet
 # t = Tweet("https://twitter.com/OReillyMedia/status/901048172738482176").component()   
 
 st.set_page_config(page_title="Disaster Tweets Management",
