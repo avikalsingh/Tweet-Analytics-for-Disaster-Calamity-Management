@@ -1,19 +1,77 @@
-# Tweet Analytics for Disaster Calamity Management
+# Tweet Analytics for Disaster & Calamity Management
 
-A Python-based toolkit for collecting, analyzing, and classifying tweets related to disaster events to assist emergency response teams.
+A Streamlit-based application for analyzing and classifying disaster-related tweets to support situational awareness and emergency response research.
 
-## Features
+> **Note:** Due to Twitter/X restrictions, live tweet fetching is currently unavailable.  
+> This application runs in **demo mode** using a curated dataset of disaster-related tweets.
 
-- Fetches real-time tweets using Twitter API
-- Embeds and preprocesses tweet text
-- Classifies tweets by disaster relevance and type using machine learning
-- Provides analytics for disaster monitoring
+---
+
+## Problem Statement
+
+During natural disasters, social media platforms generate large volumes of real-time information. However, this data is noisy, unstructured, and difficult to operationalize quickly.
+
+This project demonstrates how Natural Language Processing (NLP) and machine learning can be used to **identify relevant disaster-related tweets** and extract **actionable signals** for monitoring and response.
+
+---
+
+## Key Features
+
+- Streamlit-based interactive web application
+- NLP pipeline for tweet preprocessing and embedding
+- Machine-learning–based classification of disaster relevance
+- Named Entity Recognition (NER) for extracting location information
+- Demo dataset fallback to ensure reproducibility and deployability
+
+---
+
+## Application Mode
+
+- **Demo Mode (Current)**
+  - Uses a preloaded dataset of disaster-related tweets
+  - Designed to showcase the end-to-end analytics and classification pipeline
+
+- **Live Fetching**
+  - Temporarily disabled due to Twitter/X API and Nitter access limitations
+
+---
 
 ## Tech Stack
 
-- Python
-- Tweepy (Twitter API)
-- Scikit-learn
-- Pandas, NumPy
-- Flask (for web/API interface)
-- Jupyter Notebook
+- Python  
+- Streamlit  
+- scikit-learn  
+- Pandas, NumPy  
+- spaCy (NER)  
+- ntscraper (historical / deprecated live fetching)  
+
+---
+
+## Repository Structure
+
+```text
+.
+├── app.py                  # Streamlit entry point
+├── scripts/                # Data processing & ML pipeline
+├── content/                 # Demo datasets (sanitized)
+├── requirements.txt
+├── README.md
+
+```
+---
+## Repository Structure
+pip install -r requirements.txt
+
+streamlit run app.py
+
+
+---
+## Disclaimer
+
+This project is intended for educational and research purposes.
+
+No private or sensitive user data is collected or stored.
+
+---
+
+
